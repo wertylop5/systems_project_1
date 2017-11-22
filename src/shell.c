@@ -11,3 +11,13 @@ if cd:
 if command == exit
 	exit(0)
 */
+#include"include/shell.h"
+
+char* read_line() {
+	return 0;
+}
+
+char** parse_args(char *line) {
+	return 0;
+}
+
