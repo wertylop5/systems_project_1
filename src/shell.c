@@ -13,10 +13,10 @@ if command == exit
 */
 
 
-#include"include/shell.h"
-#include "<unistd.h>"
-#include "<stdio.h>"
-#include "<stlib.h>"
+#include "../include/shell.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 char ls * read_line() { // read args + split semicolons
