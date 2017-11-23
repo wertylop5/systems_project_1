@@ -11,13 +11,24 @@ if cd:
 if command == exit
 	exit(0)
 */
-#include"include/shell.h"
+#include "include/shell.h"
+#include "<unistd.h>"
+#include "<stdio.h>"
+#include "<stlib.h>"
 
-char* read_line() {
-	return 0;
+char ls * read_line() { // read args + split semicolons
+  char s[256];
+  fgets(s, 256, stdin);
+  printf("inputted string: %s\n", s);
+  return 0;
 }
 
 char** parse_args(char *line) {
 	return 0;
+}
+
+int main() {
+  read_line();
+  return 0;
 }
 
