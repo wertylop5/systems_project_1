@@ -1,5 +1,5 @@
 shell: main.o shell.o
-	gcc -o shell main.o
+	gcc -o shell main.o shell.o
 	make clean
 
 main.o: main.c include/shell.h

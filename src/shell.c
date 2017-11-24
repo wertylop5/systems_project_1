@@ -13,32 +13,73 @@ if command == exit
 */
 
 
-#include "../include/shell.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
-char ls * read_line() { // read args + split semicolons
+#include "../include/shell.h"
+
+/*
+char whitespace[] = {
+	'\n',
+	' ',
+	'\t'
+};
+*/
+
+char * read_line() { // read args + split semicolons
   char s[256];
   fgets(s, 256, stdin);
   printf("inputted string: %s\n", s);
   return 0;
 }
 
-/*
-Will split command string on spaces
-*/
 char** parse_args(char *line) {
-	char **result;
+	char **arg_array = malloc(64*sizeof(char*));
 	
-	line = strsep(result, ";")
+	if (!strchr(line, ' ')) {
+		*(arg_array) = line;
+		*(arg_array+1) = 0;
+		return arg_array;
+	}
 	
-	return 0;
+	int index = 0;
+	char *temp;
+	
+	//get the args
+	while(line) {
+		temp = strsep(&line, " ");
+		
+		//in case there are extra spaces
+		if (strlen(temp) > 1) {
+			*(arg_array + (index++) ) = temp;
+		}
+	}
+	
+	*(arg_array + (index) ) = 0;
+	
+	return arg_array;
 }
 
-int main() {
-  read_line();
-  return 0;
+char* strip(char *line) {
+	char *result = (char*)malloc(sizeof(line));
+	
+	//strip the front
+	while ( *line && isspace( *line ) ) line++;
+	
+	//strip the back
+	char *back = strchr(line, '\n');
+	while ( back != line && isspace( *back ) ) back--;
+	if (back == line) return 0;
+	*(back+1) = 0;
+	
+	//create the new string
+	result = line;
+	int index = 0;
+	while (*line) *(result + (index++)) = *(line++);
+	
+	return result;
 }
 
