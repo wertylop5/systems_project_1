@@ -19,7 +19,7 @@ if command == exit
 #include <string.h>
 #include <ctype.h>
 
-#include "../include/shell.h"
+#include "../include/parse.h"
 
 /*
 char whitespace[] = {
@@ -68,11 +68,12 @@ char* strip(char *line) {
 	
 	//strip the front
 	while ( *line && isspace( *line ) ) line++;
+	//if (!*line) return 0;
 	
 	//strip the back
 	char *back = strchr(line, '\n');
-	while ( back != line && isspace( *back ) ) back--;
-	if (back == line) return 0;
+	while ( back > line && isspace( *back ) ) back--;
+	if (back <= line) return 0;
 	*(back+1) = 0;
 	
 	//create the new string

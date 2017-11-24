@@ -1,12 +1,12 @@
-shell: main.o shell.o
-	gcc -o shell main.o shell.o
+shell: main.o parse.o
+	gcc -o shell main.o parse.o
 	make clean
 
-main.o: main.c include/shell.h
-	gcc -c main.c include/shell.h
+main.o: main.c include/parse.h
+	gcc -c main.c include/parse.h
 
-shell.o: src/shell.c include/shell.h
-	gcc -c src/shell.c include/shell.h
+parse.o: src/parse.c include/parse.h
+	gcc -c src/parse.c include/parse.h
 
 clean:
 	rm *.o
