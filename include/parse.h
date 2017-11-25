@@ -1,8 +1,11 @@
 #ifndef PARSE_H
 #define PARSE_H
 
-//reads a line of input, splitting the line on ';'
-char* read_line();
+/*
+reads a line of input, splitting the line on ';'
+returns a char* array with each element being an unparsed command
+*/
+char** read_line();
 
 //uses output from read_line
 char** parse_args(char*);

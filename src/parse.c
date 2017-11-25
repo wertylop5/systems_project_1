@@ -21,15 +21,8 @@ if command == exit
 
 #include "../include/parse.h"
 
-/*
-char whitespace[] = {
-	'\n',
-	' ',
-	'\t'
-};
-*/
 
-char * read_line() { // read args + split semicolons
+char** read_line() { // read args + split semicolons
   char s[256];
   fgets(s, 256, stdin);
   printf("inputted string: %s\n", s);
@@ -53,7 +46,7 @@ char** parse_args(char *line) {
 		temp = strsep(&line, " ");
 		
 		//in case there are extra spaces
-		if (strlen(temp) > 1) {
+		if (strlen(temp) > 0 && !isspace(*temp)) {
 			*(arg_array + (index++) ) = temp;
 		}
 	}
@@ -73,7 +66,7 @@ char* strip(char *line) {
 	//strip the back
 	char *back = strchr(line, '\n');
 	while ( back > line && isspace( *back ) ) back--;
-	if (back <= line) return 0;
+	if (back < line) return 0;
 	*(back+1) = 0;
 	
 	//create the new string
