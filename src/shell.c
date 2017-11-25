@@ -38,8 +38,8 @@ int parent_run(char **command) {
 		//cd was called
 		case REQUEST_CD:
 			if (!command[1]) {
-				//bash evals this as $HOME, but this will do
-				chdir(".");
+				//bash evals this as HOME
+				chdir(getenv("HOME"));
 			}
 			else if (chdir(command[1]) == -1) {
 				printf("%s: %s\n", command[1], strerror(errno));
