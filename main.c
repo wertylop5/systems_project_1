@@ -12,17 +12,17 @@ int main() {
 		fgets(l, sizeof(l), stdin);
 		
 		char *s = strip(l);
-		if (!s) exit(0);
+		if (!s) continue;
 		
 		//printf("%s\n", s);
 		
 		char **args = parse_args(s);
-		/*
+		
 		int x = 0;
 		for (; *(args+x) != 0; x++) {
 			printf("%s\n", *(args+x));
 		}
-		*/
+		
 		//execvp(args[0], args);
 		if (execute(args)) break;
 	}
