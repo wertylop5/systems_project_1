@@ -8,7 +8,7 @@
 int main() {
 	//just for testing, will definitely need read_line
 	while (1) {
-		char l[50];
+		char l[512];
 		fgets(l, sizeof(l), stdin);
 		
 		char *s = strip(l);
