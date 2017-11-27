@@ -5,7 +5,7 @@
 reads a line of input, splitting the line on ';'
 returns a char* array with each element being an unparsed command
 */
-char** read_line();
+char* read_line();
 
 //uses output from read_line
 char** parse_args(char*);
