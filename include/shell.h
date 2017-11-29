@@ -19,4 +19,10 @@ functionality for child process
 */
 int child_run(char**);
 
+/*
+if the command contains a pipe, pipe the output of first command
+into input of second
+*/
+int pipe_run(char**, char**);
+
 #endif

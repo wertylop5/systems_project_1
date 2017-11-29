@@ -167,3 +167,23 @@ char* strip(char *line) {
 
 	return result;
 }
+
+int pipe_exists(char **command) {
+	int index = 0;
+	for (; *(command+index); index++) {
+		if ( !strcmp(*(command+index), "|") ) return index;
+	}
+	
+	return -1;
+}
+
+char* arr_strncat(char *dest, char **src) {
+	while (*src) {
+		strncat(dest, *src, strlen(*src));
+		strncat(dest, " ", 1);
+		src++;
+	}
+	
+	return dest;
+}
+

@@ -7,6 +7,7 @@
 #include<string.h>
 
 #include"../include/shell.h"
+#include"../include/parse.h"
 
 #define REQUEST_EXIT	2
 #define REQUEST_CD	3
@@ -63,6 +64,19 @@ int parent_run(char **command) {
 }
 
 int child_run(char **command) {
+	int pipe_index;
+	if ( (pipe_index = pipe_exists(command)) != -1 ) {
+		//create a new array that ends before the pipe char
+		char *temp[512];
+		memcpy(temp, command, pipe_index*sizeof(char*) );
+		
+		pipe_run(temp, command+pipe_index+1);
+		exit(0);
+	}
+	
+	//interestingly enough, you can actually pipe exit and cd
+	//hence why they weren't parsed before the pipe
+	
 	//special command handling
 	if (strcmp(command[0], "exit") == 0) {
 		exit(REQUEST_EXIT);
@@ -77,5 +91,33 @@ int child_run(char **command) {
 		exit(-1);
 	}
 	return 0;	//should never run?
+}
+
+int pipe_run(char **cmd1, char **cmd2) {
+	printf("piping\n");
+	
+	char cmd1_str[512];
+	char cmd2_str[512];
+	
+	cmd1_str[0] = cmd2_str[0] = 0;
+	
+	arr_strncat(cmd1_str, cmd1);
+	arr_strncat(cmd2_str, cmd2);
+	
+	FILE *one = popen(cmd1_str, "r");
+	FILE *two = popen(cmd2_str, "w");
+	
+	char input[512];
+	
+	//reads one line of input at a time
+	while (fgets(input, sizeof(input), one)) {
+		int len = fprintf(two, "%s", input);
+		//printf("%d bytes written\n", len);
+	}
+	
+	pclose(one);
+	pclose(two);
+	
+	return 0;
 }
 
