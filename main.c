@@ -10,14 +10,15 @@
 
 int main() {
 
-	read_line();
+	//parse_semis(read_line());
 	// run parse_args once for semicolons, and then again for spaces
 
 	//just for testing, will definitely need read_line
 	while (1) {
-		char l[512];
-		fgets(l, sizeof(l), stdin);
-
+		char * l;
+		//char *l[256];
+		//fgets(l, sizeof(l), stdin);
+		l = read_line();
 		char *s = strip(l);
 		if (!s) continue;
 

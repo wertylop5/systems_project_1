@@ -56,8 +56,33 @@ char * read_line() { // read args
   s = (char *)calloc(256,sizeof(char)); // idk why malloc does not work :(
 	printf("Command? "); // printf should go before fgets or else risk infinite loop
 	fgets(s, 256, stdin);
-  //printf("%s", s);
+  s[strlen(s) - 1] = 0; // remove new line
+  //printf("length of input: %d", strlen(s));
 	return s;
+}
+
+// does not actually remove semicolons yet
+char * parse_semis(char * line) { // remove semicolons
+  int num_args = 0;
+  while (*line) { // counts up num of semis in fgets in order to get num of args
+    if (strchr(line, ';')) {
+      //args[num_args] = strsep(&line, ";");
+      num_args++;
+      line = strchr(line+1,';'); // moving on to char right after first occurrence of a semi in the string
+    }
+    line++;
+  }
+  num_args++;
+  int count = 0;
+  char ** args = (char **)calloc(num_args, sizeof(char[256]));
+  while (line) {
+    char * temp = strsep(&line, ";");
+    printf("adding this val to args array: %s\n", temp);
+    args[count] = temp;
+    count++;
+  }
+  //printf("first arg: %s\n", args[0]);
+  return line;
 }
 
 char** parse_args(char *line) {
@@ -173,7 +198,7 @@ int pipe_exists(char **command) {
 	for (; *(command+index); index++) {
 		if ( !strcmp(*(command+index), "|") ) return index;
 	}
-	
+
 	return -1;
 }
 
@@ -183,7 +208,6 @@ char* arr_strncat(char *dest, char **src) {
 		strncat(dest, " ", 1);
 		src++;
 	}
-	
+
 	return dest;
 }
-
