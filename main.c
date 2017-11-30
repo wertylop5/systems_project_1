@@ -23,7 +23,7 @@ int main() {
 		if (!s) continue;
 
 		//printf("%s\n", s);
-		char **args = parse_args(s);
+		char **args = parse_semis(s);
 
 		int x = 0;
 		for (; *(args+x) != 0; x++) {

@@ -56,7 +56,7 @@ char * read_line() { // read args
   s = (char *)calloc(256,sizeof(char)); // idk why malloc does not work :(
 	printf("Command? "); // printf should go before fgets or else risk infinite loop
 	fgets(s, 256, stdin);
-  s[strlen(s) - 1] = 0; // remove new line
+  //s[strlen(s) - 1] = 0; // remove new line
   //printf("length of input: %d", strlen(s));
 	return s;
 }
