@@ -61,28 +61,35 @@ char * read_line() { // read args
 	return s;
 }
 
-// does not actually remove semicolons yet
-char * parse_semis(char * line) { // remove semicolons
-  int num_args = 0;
-  while (*line) { // counts up num of semis in fgets in order to get num of args
-    if (strchr(line, ';')) {
-      //args[num_args] = strsep(&line, ";");
-      num_args++;
-      line = strchr(line+1,';'); // moving on to char right after first occurrence of a semi in the string
-    }
-    line++;
-  }
-  num_args++;
+char ** parse_semis(char * line) { // remove semicolons
+  int num_args = semis(line);
+  //printf("num of args: %d\n", num_args);
   int count = 0;
   char ** args = (char **)calloc(num_args, sizeof(char[256]));
+  // filling up the args array w/ input
   while (line) {
-    char * temp = strsep(&line, ";");
-    printf("adding this val to args array: %s\n", temp);
-    args[count] = temp;
+    //char * temp2 = strsep(&line, " ; ");
+    args[count] = strsep(&line, ";");
+    strsep(&line, " ");
+    printf("args[%d]: %s\n", count, args[count]);
     count++;
   }
   //printf("first arg: %s\n", args[0]);
-  return line;
+  return args;
+}
+
+int semis(char * temp) { // count up semis/args
+  int num_args = 0;
+  while (*temp) { // counts up num of semis in fgets in order to get num of args
+    if (strchr(temp, ';')) {
+      //args[num_args] = strsep(&line, ";");
+      num_args++;
+      temp = strchr(temp + 1, ';'); // moving on to char right after first occurrence of a semi in the string
+    }
+    temp++;
+  }
+  num_args++;
+  return num_args;
 }
 
 char** parse_args(char *line) {

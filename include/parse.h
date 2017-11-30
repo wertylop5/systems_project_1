@@ -8,7 +8,8 @@ returns a char* array with each element being an unparsed command
 char* read_line();
 
 //uses output from read_line
-char* parse_semis(char*);
+int semis(char*);
+char** parse_semis(char*);
 char** parse_args(char*);
 
 /*

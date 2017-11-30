@@ -10,20 +10,19 @@
 
 int main() {
 
-	//parse_semis(read_line());
-	// run parse_args once for semicolons, and then again for spaces
+
+	// parse_semis(read_line()); // returns array of arguments from input
 
 	//just for testing, will definitely need read_line
 	while (1) {
-		char * l;
+		char * l = read_line();
 		//char *l[256];
 		//fgets(l, sizeof(l), stdin);
-		l = read_line();
+		//l = read_line();
 		char *s = strip(l);
 		if (!s) continue;
 
 		//printf("%s\n", s);
-
 		char **args = parse_args(s);
 
 		int x = 0;
