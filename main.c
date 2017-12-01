@@ -15,7 +15,9 @@ int main() {
 
 	//just for testing, will definitely need read_line
 	while (1) {
+
 		char * l = read_line();
+		int num_args = semis(l);
 		//char *l[256];
 		//fgets(l, sizeof(l), stdin);
 		//l = read_line();
@@ -23,16 +25,21 @@ int main() {
 		if (!s) continue;
 
 		//printf("%s\n", s);
+		// loop through parse semis: for every arg run parse_args and execute
 		char **args = parse_semis(s);
 
 		int x = 0;
-		for (; *(args+x) != 0; x++) {
-			printf("%s\n", *(args+x));
+		for (; x < num_args; x++) {
+			parse_args(args[x]);
+			printf("executed command: \n");
+			if (execute(args)) break;
+		}
+			//printf("%s\n", *(args+x));
 		}
 
 		//execvp(args[0], args);
-		if (execute(args)) break;
-	}
+		//if (execute(args)) break;
+	//}
 
 	return 0;
 }
