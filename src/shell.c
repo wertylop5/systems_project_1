@@ -60,7 +60,7 @@ int parent_run(char **command) {
 	}
 	
 	//should usually be 0 if successful
-	printf("child exited with: %d\n", WEXITSTATUS(status));
+	//printf("child exited with: %d\n", WEXITSTATUS(status));
 	
 	return 0;
 }

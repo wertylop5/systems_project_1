@@ -1,0 +1,62 @@
+echo "TESTING ls"
+ls
+echo
+
+echo "CURRENT WORKING DIRECTORY"
+pwd
+echo
+
+echo "GOING UP A DIRECTORY"
+cd ..
+echo
+
+echo "CURRENT WORKING DIRECTORY"
+pwd
+echo
+
+echo "GOING BACK TO REPO"
+cd systems_project_1
+echo
+
+echo "CURRENT WORKING DIRECTORY"
+pwd
+echo
+
+echo "SEMICOLON TEST"
+cal ; ls -a
+echo
+
+echo "MULTIPLE SEMICOLONS"
+echo "first" ; echo "second" ; echo "third"
+echo
+
+echo "PIPING"
+ls | grep "m"
+echo
+
+echo "REDIRECT STDOUT"
+ls -al > l
+echo
+
+echo "PRINT RESULTS"
+cat l
+echo
+
+echo "REDIRECT STDIN"
+grep "m" < l
+echo
+
+echo "REDIRECT STDOUT AND STDIN"
+grep "m" < l > out
+grep "m" > out2 < l
+echo
+
+echo "PRINT RESULTS"
+echo "FIRST FILE" ; cat out ; echo "SECOND FILE" ; cat out2
+
+echo "RM PREVIOUS FILES"
+rm out out2 l
+echo
+
+echo "EXITING"
+exit
