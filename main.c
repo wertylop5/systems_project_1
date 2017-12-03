@@ -32,10 +32,10 @@ int main() {
 		for (; x < num_args; x++) {
 			//parse_args(args[x]);
 			//printf("executed command: \n");
-			if (execute( parse_args(args[x]) )) break;
+			if (execute( parse_args(args[x]) )) exit(0);
 		}
 			//printf("%s\n", *(args+x));
-		}
+	}
 
 		//execvp(args[0], args);
 		//if (execute(args)) break;
