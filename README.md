@@ -17,16 +17,18 @@ By Stanley Lin and Sabrina Wen
 
 ## Functions:
 * `parse.c`
-	`
-	/*
-	reads a line of input, splitting the line on ';'
-	returns a char* array with each element being an unparsed command
-	*/
-	char* read_line();
-
-	//uses output from read_line
-	char* parse_semis(char*);
-	`
+	* `char* read_line()`
+		* Reads a line of input, splitting the line on ';'.
+		* Returns:
+			* `char*`: An array with each element being an unparsed command
+	* `int semis(char*)`
+		* Counts the number of args that are seperated by semicolons
+		* Params:
+			* `char*`: A command string
+		* Returns:
+			* `int`: The number of arguments
+	* `char** parse_semis(char*)`
+		* Uses output from read_line
 	* `char** parse_args(char*)`
 		* Splits the passed command string by spaces into its individual arguments
 		* Params:
@@ -39,12 +41,13 @@ By Stanley Lin and Sabrina Wen
 			* `char*`: The string to be stripped
 		* Returns:
 			* `char*`: A new string with all leading and trailing whitespace removed
-	* `int pipe_exists(char**)`
-		* Checks if the pipe character ('|') exists in the command.
+	* `int char_exists(char**, char*)`
+		* Checks if a string with a single character exists in the command.
 		* Params:
 			* `char**`: An array of strings. Must be terminated with a NULL string
+			* `char*`: A string with only one character
 		* Returns:
-			* `int`: The index of the | character, or -1 if it is not found
+			* `int`: The index of the specified character, or -1 if it is not found
 	* `char* arr_strncat(char*, char**)`
 		* Concats all the elements of a string array into a single string. The string array must be terminated with NULL as the last element. This function will stop when it reaches a NULL string.
 		* Params:
@@ -52,6 +55,12 @@ By Stanley Lin and Sabrina Wen
 			* `char**`: The source array of strings
 		* Returns:
 			* `char*`: The destination string
+	* `size_t command_size(char**)`
+		* Counts the number of arguments in an array
+		* Params:
+			* `char**`: An array of strings. Must be terminated with a NULL string
+		* Returns:
+			* `size_t`: The size of the array
 * `name.c`
 	* `int execute(char**)`
 		* Forks a child and runs the command specified in the array. Normally will return 0, but if the shell requests to terminate, will return a non-zero number
