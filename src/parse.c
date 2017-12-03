@@ -1,18 +1,3 @@
-/*
-read line
-parse arguments
-fork off a child process
-	child: exec with args
-	parent: wait until child finish
-
-if cd:
-	use chdir
-
-if command == exit
-	exit(0)
-*/
-
-
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,34 +6,6 @@ if command == exit
 
 #include "../include/parse.h"
 
-/*
-char** parse_args(char *line) {
-	char **arg_array = malloc(64*sizeof(char*));
-
-	if (!strchr(line, ' ')) {
-		*(arg_array) = line;
-		*(arg_array+1) = 0;
-		return arg_array;
-	}
-
-	int index = 0;
-	char *temp;
-
-	//get the args
-	while(line) {
-		temp = strsep(&line, " ");
-
-		//in case there are extra spaces
-		if (strlen(temp) > 0 && !isspace(*temp)) {
-			*(arg_array + (index++) ) = temp;
-		}
-	}
-
-	*(arg_array + (index) ) = 0;
-
-	return arg_array;
-}
-*/
 
 char * read_line() { // read args
   char * s;
@@ -128,7 +85,7 @@ char** parse_args(char *line) {
 
 		//BUG: \ are not removed
 		if (*line == '\'' || *line == '\"') {
-			printf("found first quote: %c\n", *line);
+			//printf("found first quote: %c\n", *line);
 			char *quote_temp;
 			temp = line++;
 
@@ -141,10 +98,10 @@ char** parse_args(char *line) {
 
 				//is the quote escaped?
 				if ( *(quote_temp - 1) != '\\' ) {
-					printf("found second quote: %c\n", *quote_temp);
-					printf("str len is: %ld\n", quote_temp - temp - 1);
+					//printf("found second quote: %c\n", *quote_temp);
+					//printf("str len is: %ld\n", quote_temp - temp - 1);
 
-					printf("temp+1: %c, temp: %c, quote_temp: %c\n", *(temp+1), *temp, *quote_temp);
+					//printf("temp+1: %c, temp: %c, quote_temp: %c\n", *(temp+1), *temp, *quote_temp);
 
 					//advance the string past the last quote so it doesn't search again
 					line = quote_temp + 1;
@@ -155,7 +112,7 @@ char** parse_args(char *line) {
 					quote_temp = malloc(quote_temp - temp);
 					strncpy(quote_temp, temp+1, n);
 
-					printf("full str: %s\n", quote_temp);
+					//printf("full str: %s\n", quote_temp);
 					*(arg_array + (index++) ) = quote_temp;
 
 					break;
@@ -171,7 +128,6 @@ char** parse_args(char *line) {
 			//in case there are extra spaces
 			if (strlen(temp) > 0 && !isspace(*temp)) {
 				*(arg_array + (index++) ) = temp;
-        //printf("space arg[%d]: %s\n", index - 1, temp);
 			}
 		}
 	}
@@ -202,10 +158,10 @@ char* strip(char *line) {
 	return result;
 }
 
-int pipe_exists(char **command) {
+int char_exists(char **command, char *targ) {
 	int index = 0;
 	for (; *(command+index); index++) {
-		if ( !strcmp(*(command+index), "|") ) return index;
+		if ( !strcmp(*(command+index), targ) ) return index;
 	}
 
 	return -1;
@@ -220,3 +176,11 @@ char* arr_strncat(char *dest, char **src) {
 
 	return dest;
 }
+
+size_t command_size(char **command) {
+	size_t size = 0;
+	while (*(command++)) size++;
+	return size;
+}
+
+

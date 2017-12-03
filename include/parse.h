@@ -1,6 +1,8 @@
 #ifndef PARSE_H
 #define PARSE_H
 
+#include<stdlib.h>
+
 /*
 reads a line of input, splitting the line on ';'
 returns a char* array with each element being an unparsed command
@@ -21,12 +23,12 @@ returns: a new string with surrounding whitespace removed
 char* strip(char*);
 
 /*
-Checks if the pipe character ('|') exists in the command.
+Checks if a string with a single character exists in the command.
 
 If so, will return the index at which it is located.
 Else, will return -1
 */
-int pipe_exists(char**);
+int char_exists(char**, char*);
 
 /*
 Concats all the elements of a string array into a single
@@ -40,5 +42,10 @@ second arg is the source array
 returns the destination
 */
 char* arr_strncat(char*, char**);
+
+/*
+Returns number of elements in command array
+*/
+size_t command_size(char**);
 
 #endif

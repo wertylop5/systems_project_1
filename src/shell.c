@@ -1,10 +1,12 @@
 #include<sys/types.h>
 #include<sys/wait.h>
+#include<sys/stat.h>
 #include<unistd.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<errno.h>
 #include<string.h>
+#include<fcntl.h>
 
 #include"../include/shell.h"
 #include"../include/parse.h"
@@ -53,7 +55,7 @@ int parent_run(char **command) {
 		
 		//abnormal operation
 		default:
-			printf("%s: command not found\n", command[0]);
+			printf("An error occured with your command. Please try again\n");
 		break;
 	}
 	
@@ -64,14 +66,35 @@ int parent_run(char **command) {
 }
 
 int child_run(char **command) {
-	int pipe_index;
-	if ( (pipe_index = pipe_exists(command)) != -1 ) {
-		//create a new array that ends before the pipe char
+	int char_index;
+	if ( (char_index = char_exists(command, "|")) != -1 ) {
+		//create a new array that ends before the found char
 		char *temp[512];
-		memcpy(temp, command, pipe_index*sizeof(char*) );
+		memcpy(temp, command, char_index*sizeof(char*) );
 		
-		pipe_run(temp, command+pipe_index+1);
+		pipe_run(temp, command+char_index+1);
 		exit(0);
+	}
+	if ( (char_index = char_exists(command, ">")) != -1 ) {
+		int targ_out = open(*(command+char_index+1), O_CREAT | O_WRONLY, 0644);
+		dup2(targ_out, 1);
+		
+		//remove the >, along with the target file from the command array
+		memmove(command+char_index,
+			command+char_index+2,
+			(command_size(command) - char_index + 1) * sizeof(char*));
+	}
+	if ( (char_index = char_exists(command, "<")) != -1 ) {
+		int targ_in = open(*(command+char_index+1), O_RDONLY);
+		if (targ_in == -1) {
+			printf("%s: %s\n", *(command+char_index+1), strerror(errno));
+			exit(1);
+		}
+		dup2(targ_in, 0);
+		
+		memmove(command+char_index,
+			command+char_index+2,
+			(command_size(command) - char_index + 1) * sizeof(char*));
 	}
 	
 	//interestingly enough, you can actually pipe exit and cd
