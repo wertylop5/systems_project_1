@@ -63,7 +63,7 @@ char * read_line() { // read args
 
 char ** parse_semis(char * line) { // remove semicolons
   int num_args = semis(line);
-  printf("num args: %d\n", num_args);
+  //printf("num args: %d\n", num_args);
   //printf("num of args: %d\n", num_args);
   int count = 0;
   char ** args = (char **)calloc(num_args, sizeof(char[256]));
@@ -72,7 +72,7 @@ char ** parse_semis(char * line) { // remove semicolons
     //char * temp2 = strsep(&line, " ; ");
     args[count] = strip(strsep(&line, ";"));
     //strsep(&line, " ");
-    printf("args[%d]: %s\n", count, args[count]);
+    //printf("args[%d]: %s\n", count, args[count]);
     count++;
   }
   //printf("first arg: %s\n", args[0]);
@@ -171,7 +171,7 @@ char** parse_args(char *line) {
 			//in case there are extra spaces
 			if (strlen(temp) > 0 && !isspace(*temp)) {
 				*(arg_array + (index++) ) = temp;
-        printf("space arg[%d]: %s\n", index - 1, temp);
+        //printf("space arg[%d]: %s\n", index - 1, temp);
 			}
 		}
 	}
