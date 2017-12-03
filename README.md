@@ -6,7 +6,7 @@ By Stanley Lin and Sabrina Wen
 * Fork and execute commands
 * Use strings in commands (grep!!!)
 * Pipe commands together (limited to one point)
-	
+
 
 ## Attempted features:
 
@@ -14,6 +14,7 @@ By Stanley Lin and Sabrina Wen
 ## Bugs:
 * The \ in escaped quotes are not removed in the final string
 * Cannot handling semicolons within a string
+* If one command in a list of commands is invalid, then every command that follows will be invalid.
 
 ## Functions:
 * `parse.c`
@@ -61,7 +62,7 @@ By Stanley Lin and Sabrina Wen
 			* `char**`: An array of strings. Must be terminated with a NULL string
 		* Returns:
 			* `size_t`: The size of the array
-* `name.c`
+* `shell.c`
 	* `int execute(char**)`
 		* Forks a child and runs the command specified in the array. Normally will return 0, but if the shell requests to terminate, will return a non-zero number
 		* Params:
@@ -72,7 +73,7 @@ By Stanley Lin and Sabrina Wen
 		* Functionality for parent process
 		* Params:
 			* `char**`: An array of strings containing command arguments
-		* Returns: 
+		* Returns:
 			* `int`: Normally 0, non-zero if requesting to exit
 	* `int child_run(char**)`
 		* Functionality for child process
