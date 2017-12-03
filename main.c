@@ -30,9 +30,9 @@ int main() {
 
 		int x = 0;
 		for (; x < num_args; x++) {
-			parse_args(args[x]);
+			//parse_args(args[x]);
 			printf("executed command: \n");
-			if (execute(args)) break;
+			if (execute( parse_args(args[x]) )) break;
 		}
 			//printf("%s\n", *(args+x));
 		}

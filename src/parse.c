@@ -70,8 +70,8 @@ char ** parse_semis(char * line) { // remove semicolons
   // filling up the args array w/ input
   while (line) {
     //char * temp2 = strsep(&line, " ; ");
-    args[count] = strsep(&line, ";");
-    strsep(&line, " ");
+    args[count] = strip(strsep(&line, ";"));
+    //strsep(&line, " ");
     printf("args[%d]: %s\n", count, args[count]);
     count++;
   }
@@ -183,13 +183,13 @@ char** parse_args(char *line) {
 
 char* strip(char *line) {
 	char *result = (char*)malloc(sizeof(line));
-
+	//printf("line: %s\n", line);
 	//strip the front
 	while ( *line && isspace( *line ) ) line++;
 	//if (!*line) return 0;
 
 	//strip the back
-	char *back = strchr(line, '\n');
+	char *back = strchr(line, '\0')-1;
 	while ( back > line && isspace( *back ) ) back--;
 	if (back < line) return 0;
 	*(back+1) = 0;
