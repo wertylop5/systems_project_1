@@ -80,7 +80,7 @@ By Stanley Lin and Sabrina Wen
 			* `char**`: An array of strings containing command arguments
 		* Returns:
 			* `int`: Normally 0
-	`int pipe_run(char**, char**)`
+	* `int pipe_run(char**, char**)`
 		* If the command contains a pipe, pipe the output of first command into input of second
 		* Params:
 			* `char**`: The first command to run
