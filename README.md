@@ -5,7 +5,8 @@ By Stanley Lin and Sabrina Wen
 ## Features:
 * Fork and execute commands
 * Use strings in commands (grep!!!)
-* Pipe commands together (limited to one point)
+* Pipe commands together (limited to one pipe)
+* Redirect stdout and stdin, even at the same time!
 
 
 ## Attempted features:
